@@ -1,0 +1,57 @@
+.main {
+  width: 100%;
+  padding-top: 60px;
+}
+
+.main .wrapper {
+  margin: 0 auto;
+  width: 350px;
+}
+
+.main .title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.main input {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 25px;
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 2px solid #909090;
+}
+
+.main .error {
+  margin-top: 5px;
+  color: #db4f2e;
+  text-align: center;
+}
+
+.main button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 10px;
+  background-color: #214be0;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.main .text {
+  margin-top: 25px;
+  color: #909090;
+  text-align: center;
+}
+
+.main .register {
+  margin-top: 10px;
+  text-decoration: none;
+  color: #214be0;
+  display: block;
+  text-align: center;
+}
