@@ -14,7 +14,7 @@
       </form>
     </li>
     <li>
-      <form method="GET" action="#">
+      <form method="GET" action="/attendance">
         @csrf
         <input class="nav" type="submit" value="日付一覧" />
       </form>

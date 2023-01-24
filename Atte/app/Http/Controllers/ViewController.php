@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Stamp;
 use App\Models\Rest;
+use App\Models\User;
 
 class ViewController extends Controller
 {
@@ -14,7 +15,6 @@ class ViewController extends Controller
     {
         $user = Auth::user();
         $now = Carbon::now();
-
 
         // 勤務中か否か
         $stamp = Stamp::where('user_id', $user->id)
@@ -59,5 +59,17 @@ class ViewController extends Controller
         $param = array_merge(['user' => $user], $message, $workSwitch, $restSwitch);
 
         return view('home', $param);
+    }
+
+    public function attendance()
+    {
+        $stamps = Stamp::Paginate(1);
+        return view('attendance', ['stamps' => $stamps]);
+        
+
+        
+        
+        
+
     }
 }

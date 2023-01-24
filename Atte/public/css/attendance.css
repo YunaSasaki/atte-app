@@ -1,0 +1,37 @@
+/* ヘッダー */
+.header .wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header nav {
+  display: flex;
+  align-items: center;
+}
+
+.header ul {
+  display: flex;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.header ul li {
+  margin-right: 40px;
+}
+
+.header ul li:last-child {
+  margin-right: 0;
+}
+
+.header .nav {
+  border: none;
+  background-color: transparent;
+  color: #000;
+  cursor: pointer;
+}
+
+/* メイン */
+.main {
+  width: 100%;
+  padding-top: 40px;
+}

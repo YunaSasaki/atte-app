@@ -19,6 +19,7 @@ use App\Http\Controllers\ViewController;
 */
 
 Route::get('/', [ViewController::class, 'home'])->middleware(['auth', 'verified'])->name('home');
+Route::get('/attendance', [ViewController::class, 'attendance'])->middleware(['auth', 'verified'])->name('attendance');
 Route::post('/work/start', [StampController::class, 'start']);
 Route::post('/work/end', [StampController::class, 'end']);
 Route::post('/rest/start', [RestController::class, 'start']);
