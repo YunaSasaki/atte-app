@@ -35,3 +35,35 @@
   width: 100%;
   padding-top: 40px;
 }
+
+.main .wrapper {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.main .date {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.main .display {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.main tr {
+  border-top: solid #000 1px;
+  height: 70px;
+}
+
+.main th, .main td {
+  height: 100%;
+  vertical-align: middle;
+}
+
+.main .pagination {
+  margin: 0 auto;
+}

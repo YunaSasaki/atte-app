@@ -35,3 +35,5 @@
   <a class="login" href="{{ route('login') }}">ログイン</a>
 </div>
 @endsection
+
+@section('js', '')

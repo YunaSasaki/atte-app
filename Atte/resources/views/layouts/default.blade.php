@@ -25,6 +25,7 @@
       <small>Atte,inc.</small>
     </footer>
   </div>
+  @yield('js')
 </body>
 
 </html>

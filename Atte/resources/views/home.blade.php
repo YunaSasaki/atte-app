@@ -76,5 +76,6 @@
   {{$error}}
 </div>
 @endif
-
 @endsection
+
+@section('js', '')

@@ -27,3 +27,5 @@
   <a class="register" href="{{ route('register') }}">会員登録</a>
 </div>
 @endsection
+
+@section('js', '')
