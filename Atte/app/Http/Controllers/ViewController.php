@@ -65,37 +65,47 @@ class ViewController extends Controller
     {   
         $stamps = Stamp::Paginate(5);
 
-        // 勤務時間の計算
+        $restTimes = array();
         $workTimes = array();
-        foreach ($stamps as $stamp){
-            $start_work = strtotime($stamp->stamp_date.$stamp->start_work);
-            $end_work = strtotime($stamp->stamp_date.$stamp->end_work);
-            $work_calc = $end_work - $start_work;
-            $work_hour = floor($work_calc / 3600);
-            $work_minute = floor(($work_calc % 3600) / 60);
-            $work_second = ($work_calc % 3600) % 60;
-            $workTime = sprintf('%02d', $work_hour). ':'. sprintf('%02d', $work_minute). ':'. sprintf('%02d', $work_second);
+
+        foreach ($stamps as $stamp) {
+            // 休憩時間の計算
+            $rests = Rest::where('stamp_id', $stamp->id)
+                ->get();
+            if (empty($rests)) {
+                $restTime_total = 0;
+                $restTime = '00:00:00';
+                array_push($restTimes, $restTime);
+                unset($restTime);
+            }else{
+                $restTime_array = array();
+                foreach ($rests as $rest) {
+                    $start_rest = strtotime($rest->rest_date . $rest->start_rest);
+                    $end_rest = strtotime($rest->rest_date . $rest->end_rest);
+                    $restTime_sub = $end_rest - $start_rest;
+                    array_push($restTime_array, $restTime_sub);
+                }
+                $restTime_total = array_sum($restTime_array);
+                $restTime_h = floor($restTime_total / 3600);
+                $restTime_i = floor(($restTime_total % 3600) / 60);
+                $restTime_s = ($restTime_total % 3600) % 60;
+                $restTime = sprintf('%02d', $restTime_h) . ':' . sprintf('%02d', $restTime_i) . ':' . sprintf('%02d', $restTime_s);
+                array_push($restTimes, $restTime);
+                unset($restTime);
+            }
+
+            // 勤務時間の計算
+            $start_work = strtotime($stamp->stamp_date . $stamp->start_work);
+            $end_work = strtotime($stamp->stamp_date . $stamp->end_work);
+            $workTime_sub = $end_work - $start_work - $restTime_total;
+            $workTime_h = floor($workTime_sub / 3600);
+            $workTime_i = floor(($workTime_sub % 3600) / 60);
+            $workTime_s = ($workTime_sub % 3600) % 60;
+            $workTime = sprintf('%02d', $workTime_h) . ':' . sprintf('%02d', $workTime_i) . ':' . sprintf('%02d', $workTime_s);
             array_push($workTimes, $workTime);
             unset($workTime);
         }
 
-        // 休憩時間の計算・・・同じstamp_idでまとめたい
-        $restTimes = array();
-        foreach ($stamps as $stamp) {
-            $start_rest = strtotime($stamp->rests->rest_date. $stamp->rests->start_rest);
-            $end_rest = strtotime($stamp->rests->rest_date. $stamp->rests->start_rest);
-            $rest_calc = $end_rest - $start_rest;
-            $rest_hour = floor($rest_calc / 3600);
-            $rest_minute = floor(($rest_calc % 3600) / 60);
-            $rest_second = ($rest_calc % 3600) % 60;
-            $restTime = sprintf('%02d', $rest_hour) . ':' . sprintf('%02d', $rest_minute) . ':' . sprintf('%02d', $rest_second);
-            array_push($restTimes, $restTime);
-            unset($restTime);
-        }
-
-
-
-
-        return view('attendance', ['stamps' => $stamps, 'workTimes' => $workTimes]);
+        return view('attendance', ['stamps' => $stamps, 'workTimes' => $workTimes, 'restTimes' => $restTimes]);
     }
 }

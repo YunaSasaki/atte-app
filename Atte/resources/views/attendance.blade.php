@@ -57,7 +57,7 @@
       <td>{{ $stamp->user->name }}</td>
       <td>{{ $stamp->start_work }}</td>
       <td>{{ $stamp->end_work }}</td>
-      <td>00:30:00</td>
+      <td>{{ $restTimes[$loop->index] }}</td>
       <td>{{ $workTimes[$loop->index] }}</td>
     </tr>
     @endforeach
