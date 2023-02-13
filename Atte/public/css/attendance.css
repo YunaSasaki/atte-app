@@ -41,12 +41,6 @@
   max-width: 900px;
 }
 
-.main .date {
-  font-size: 1.2rem;
-  font-weight: 700;
-  text-align: center;
-}
-
 .main .display {
   margin-top: 40px;
   margin-bottom: 20px;
@@ -66,4 +60,44 @@
 
 .main .pagination {
   margin: 0 auto;
+}
+
+/* 日付選択ボタン */
+.main .date {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+
+
+.date-edit {
+  position: relative;
+}
+
+input[type="date"] {
+  padding: 10px;
+  text-align: center;
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="date"]::-webkit-clear-button {
+  -webkit-appearance: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  padding: 0;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+  height: 50px;
+  width: 110px;
 }
