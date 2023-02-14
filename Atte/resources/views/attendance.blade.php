@@ -35,9 +35,14 @@
 <div class="wrapper">
   <form class="date" id="submit_date" method="GET" action="/attendance">
     @csrf
-    <!-- <label class="date-edit"><input type="date" id="stamp_date" name="stamp_date" value="{{ $stamp_date }}" /></label> -->
-    <input type="date" id="inp3" style="width:0px; border-width:0px;" name="stamp_date" value="{{ $stamp_date }}">
-    <input type="button" id="btn3" value="{{ $stamp_date }}">
+    <!-- input date 本体 -->
+    <input type="date" class="hidden_box" id="inp_date" name="stamp_date" value="{{ $stamp_date }}">
+    <!-- 一日戻す -->
+    <input type="button" class="btn_sub" id="btn_sub" value="&lt;">
+    <!-- カレンダーを出す -->
+    <input type="button" class="btn_picker" id="btn_picker" value="{{ $stamp_date }}">
+    <!-- 一日進める -->
+    <input type="button" class="btn_add" id="btn_add" value="&gt;">
   </form>
   <table class="display">
     <thead>
@@ -47,7 +52,6 @@
         <th>勤務終了</th>
         <th>休憩時間</th>
         <th>勤務時間</th>
-        <th>勤務日</th>
       </tr>
     </thead>
     <tbody>
@@ -58,7 +62,7 @@
         <td>{{ $stamp->end_work }}</td>
         <td>{{ $restTimes[$loop->index] }}</td>
         <td>{{ $workTimes[$loop->index] }}</td>
-        <td>{{ $stamp->stamp_date }}</td>
+        <td hidden>{{ $stamp->stamp_date }}</td>
       </tr>
       @endforeach
     </tbody>
@@ -72,49 +76,52 @@
 @section('js')
 <script>
   // id="today"にデフォルトで今日の日付を設定する
-  var date = new Date();
-  var yyyy = date.getFullYear();
-  var mm = ("0" + (date.getMonth() + 1)).slice(-2);
-  var dd = ("0" + date.getDate()).slice(-2);
-  document.getElementById("today").value = yyyy + '-' + mm + '-' + dd;
+  var now = new Date();
+  var yyyy = now.getFullYear();
+  var mm = ("0" + (now.getMonth() + 1)).slice(-2);
+  var dd = ("0" + now.getDate()).slice(-2);
+  document.querySelector('#today').value = yyyy + '-' + mm + '-' + dd;
 </script>
 <script>
-  let flg = false;
-  // ボタンがクリックされたときの処理
-  document.querySelector('#btn3').addEventListener('click', (event) => {
-    document.querySelector('#inp3').showPicker();
+  // カレンダーボタンがクリックされたときの処理
+  document.querySelector('#btn_picker').addEventListener('click', (event) => {
+    document.querySelector('#inp_date').showPicker();
   }, false);
 
   // 日付が選択されたときの処理
-  document.querySelector('#inp3').addEventListener('change', (event) => {
-    document.querySelector('#btn3').value = event.target.value;
+  document.querySelector('#inp_date').addEventListener('change', (event) => {
+    document.querySelector('#btn_picker').value = event.target.value;
     // formを送信する
     var fm = document.getElementById("submit_date");
     fm.submit();
   }, false);
-
-  // var picker = document.getElementById('picker');
-  // picker.addEventListener('click', function() {
-  //   var flg = "on";
-  // }, false);
-
-  // var stampDate = document.getElementById('stamp_date');
-  // stampDate.addEventListener('blur', function() {
-  //   var flg = null;
-  // }, false);
-
-  // stampDate.addEventListener('change', function() {
-  //   if (flg == "on") {
-  //     var fm = document.getElementById("submit_date");
-  //     fm.submit();
-  //     var flg = null;
-  //   }
-  // }, false);
-
-  // formを送信する
-  // function submitDate() {
-  //   var fm = document.getElementById("submit_date");
-  //   fm.submit();
-  // }
+</script>
+<script>
+  // 一日前
+  document.querySelector('#btn_sub').addEventListener('click', (event) => {
+    var date = new Date('{{ $stamp_date }}');
+    date.setDate(date.getDate() - 1);
+    var yyyy = date.getFullYear();
+    var mm = ("0" + (date.getMonth() + 1)).slice(-2);
+    var dd = ("0" + date.getDate()).slice(-2);
+    document.querySelector('#inp_date').value = yyyy + '-' + mm + '-' + dd;
+    // formを送信する
+    var fm = document.getElementById("submit_date");
+    fm.submit();
+  }, false);
+</script>
+<script>
+  // 一日後
+  document.querySelector('#btn_add').addEventListener('click', (event) => {
+    var date = new Date('{{ $stamp_date }}');
+    date.setDate(date.getDate() + 1);
+    var yyyy = date.getFullYear();
+    var mm = ("0" + (date.getMonth() + 1)).slice(-2);
+    var dd = ("0" + date.getDate()).slice(-2);
+    document.querySelector('#inp_date').value = yyyy + '-' + mm + '-' + dd;
+    // formを送信する
+    var fm = document.getElementById("submit_date");
+    fm.submit();
+  }, false);
 </script>
 @endsection

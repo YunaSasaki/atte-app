@@ -30,6 +30,10 @@
   cursor: pointer;
 }
 
+.header .nav:hover {
+  color: #fdd35c;
+}
+
 /* メイン */
 .main {
   width: 100%;

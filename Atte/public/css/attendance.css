@@ -30,6 +30,10 @@
   cursor: pointer;
 }
 
+.header .nav:hover {
+  color: #fdd35c;
+}
+
 /* メイン */
 .main {
   width: 100%;
@@ -64,40 +68,41 @@
 
 /* 日付選択ボタン */
 .main .date {
+  text-align: center;
+}
+
+.main .hidden_box {
+  height: 0;
+  width: 0;
+  border-width: 0px;
+}
+
+.main .btn_picker {
   font-size: 1.2rem;
   font-weight: 700;
-  text-align: center;
-}
-
-
-
-.date-edit {
-  position: relative;
-}
-
-input[type="date"] {
-  padding: 10px;
-  text-align: center;
-}
-
-input[type="date"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-
-input[type="date"]::-webkit-clear-button {
-  -webkit-appearance: none;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  padding: 0;
-  background: transparent;
-  color: transparent;
+  margin: 0 20px;
+  background-color: transparent;
+  color: #000;
+  border: none;
   cursor: pointer;
-  height: 50px;
-  width: 110px;
+}
+
+.main .btn_picker:hover {
+  color: #fdd35c;
+}
+
+.main .btn_sub,
+.main .btn_add {
+  font-size: 1.2rem;
+  padding: 0 10px;
+  background-color: #fff;
+  color: #0d6efd;
+  border: solid #0d6efd 1px;
+  cursor: pointer;
+}
+
+.main .btn_sub:hover,
+.main .btn_add:hover {
+  color: #fdd35c;
+  border: solid #fdd35c 1px;
 }

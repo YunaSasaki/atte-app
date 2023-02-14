@@ -17,7 +17,7 @@
       <form method="GET" action="/attendance">
         @csrf
         <input class="nav" type="submit" value="日付一覧" />
-        <input type="hidden" id="select_date" name="stamp_date" />
+        <input type="hidden" id="today" name="stamp_date" />
       </form>
     </li>
     <li>
@@ -81,13 +81,11 @@
 
 @section('js')
 <script>
-  // id="select_date"にデフォルトで今日の日付を設定する
-  var date = new Date();
-
-  var yyyy = date.getFullYear();
-  var mm = ("0" + (date.getMonth() + 1)).slice(-2);
-  var dd = ("0" + date.getDate()).slice(-2);
-
-  document.getElementById("select_date").value = yyyy + '-' + mm + '-' + dd;
+  // id="today"にデフォルトで今日の日付を設定する
+  var now = new Date();
+  var yyyy = now.getFullYear();
+  var mm = ("0" + (now.getMonth() + 1)).slice(-2);
+  var dd = ("0" + now.getDate()).slice(-2);
+  document.querySelector('#today').value = yyyy + '-' + mm + '-' + dd;
 </script>
 @endsection
