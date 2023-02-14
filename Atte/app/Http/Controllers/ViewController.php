@@ -93,7 +93,6 @@ class ViewController extends Controller
             $restTime = sprintf('%02d', $restTime_h) . ':' . sprintf('%02d', $restTime_i) . ':' . sprintf('%02d', $restTime_s);
             array_push($restTimes, $restTime);
 
-
             // 勤務時間の計算
             if (empty($stamp->end_work)){
                 $workTime = '00:00:00';
