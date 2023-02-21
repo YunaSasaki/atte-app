@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('rests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('stamp_id')->unsigned()->index();
-            $table->date('rest_date');
             $table->time('start_rest')->nullable();
             $table->time('end_rest')->nullable();
             $table->timestamps();

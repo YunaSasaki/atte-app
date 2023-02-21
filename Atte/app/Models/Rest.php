@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rest extends Model
 {
-    protected $fillable = ['stamp_id', 'rest_date', 'start_rest', 'end_rest'];
+    use HasFactory;
+
+    protected $fillable = ['stamp_id', 'start_rest', 'end_rest'];
 
     public function stamp()
     {
