@@ -62,7 +62,6 @@
         <td>{{ $stamp->end_work }}</td>
         <td>{{ $restTimes[$loop->index] }}</td>
         <td>{{ $workTimes[$loop->index] }}</td>
-        <td hidden>{{ $stamp->stamp_date }}</td>
       </tr>
       @endforeach
     </tbody>
@@ -75,14 +74,18 @@
 
 @section('js')
 <script>
+  // Date関数で取得した日付をyyyy-mm-ddの形式にする関数
+  function formatDate(date) {
+    let yyyy = date.getFullYear();
+    let mm = ("0" + (date.getMonth() + 1)).slice(-2);
+    let dd = ("0" + date.getDate()).slice(-2);
+    return yyyy + '-' + mm + '-' + dd;
+  }
+
   // id="today"にデフォルトで今日の日付を設定する
-  var now = new Date();
-  var yyyy = now.getFullYear();
-  var mm = ("0" + (now.getMonth() + 1)).slice(-2);
-  var dd = ("0" + now.getDate()).slice(-2);
-  document.querySelector('#today').value = yyyy + '-' + mm + '-' + dd;
-</script>
-<script>
+  let today = formatDate(new Date());
+  document.querySelector('#today').value = today;
+
   // カレンダーボタンがクリックされたときの処理
   document.querySelector('#btn_picker').addEventListener('click', (event) => {
     document.querySelector('#inp_date').showPicker();
@@ -90,37 +93,31 @@
 
   // 日付が選択されたときの処理
   document.querySelector('#inp_date').addEventListener('change', (event) => {
-    document.querySelector('#btn_picker').value = event.target.value;
     // formを送信する
-    var fm = document.getElementById("submit_date");
+    let fm = document.querySelector('#submit_date');
     fm.submit();
   }, false);
-</script>
-<script>
-  // 一日前
+
+  // stampDateを定義
+  let stampDate = new Date('{{ $stamp_date }}');
+
+  // 一日前のリストを表示
   document.querySelector('#btn_sub').addEventListener('click', (event) => {
-    var date = new Date('{{ $stamp_date }}');
-    date.setDate(date.getDate() - 1);
-    var yyyy = date.getFullYear();
-    var mm = ("0" + (date.getMonth() + 1)).slice(-2);
-    var dd = ("0" + date.getDate()).slice(-2);
-    document.querySelector('#inp_date').value = yyyy + '-' + mm + '-' + dd;
+    stampDate.setDate(stampDate.getDate() - 1);
+    let dayBefore = formatDate(stampDate);
+    document.querySelector('#inp_date').value = dayBefore;
     // formを送信する
-    var fm = document.getElementById("submit_date");
+    let fm = document.querySelector('#submit_date');
     fm.submit();
   }, false);
-</script>
-<script>
-  // 一日後
+
+  // 一日後のリストを表示
   document.querySelector('#btn_add').addEventListener('click', (event) => {
-    var date = new Date('{{ $stamp_date }}');
-    date.setDate(date.getDate() + 1);
-    var yyyy = date.getFullYear();
-    var mm = ("0" + (date.getMonth() + 1)).slice(-2);
-    var dd = ("0" + date.getDate()).slice(-2);
-    document.querySelector('#inp_date').value = yyyy + '-' + mm + '-' + dd;
+    stampDate.setDate(stampDate.getDate() + 1);
+    let dayAfter = formatDate(stampDate);
+    document.querySelector('#inp_date').value = dayAfter;
     // formを送信する
-    var fm = document.getElementById("submit_date");
+    let fm = document.querySelector('#submit_date');
     fm.submit();
   }, false);
 </script>

@@ -82,10 +82,10 @@
 @section('js')
 <script>
   // id="today"にデフォルトで今日の日付を設定する
-  var now = new Date();
-  var yyyy = now.getFullYear();
-  var mm = ("0" + (now.getMonth() + 1)).slice(-2);
-  var dd = ("0" + now.getDate()).slice(-2);
+  let today = new Date();
+  let yyyy = today.getFullYear();
+  let mm = ("0" + (today.getMonth() + 1)).slice(-2);
+  let dd = ("0" + today.getDate()).slice(-2);
   document.querySelector('#today').value = yyyy + '-' + mm + '-' + dd;
 </script>
 @endsection
