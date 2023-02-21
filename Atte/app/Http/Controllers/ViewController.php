@@ -80,8 +80,8 @@ class ViewController extends Controller
                 if (empty($rest->end_rest)){
                     $restTime_sub = 0;
                 }else{
-                    $start_rest = strtotime($rest->rest_date . $rest->start_rest);
-                    $end_rest = strtotime($rest->rest_date . $rest->end_rest);
+                    $start_rest = strtotime($stamp->stamp_date . $rest->start_rest);
+                    $end_rest = strtotime($stamp->stamp_date . $rest->end_rest);
                     $restTime_sub = $end_rest - $start_rest;
                 }
                 array_push($restTime_array, $restTime_sub);
